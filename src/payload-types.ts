@@ -68,6 +68,7 @@ export interface Config {
   blocks: {};
   collections: {
     posts: Post;
+    players: Player;
     users: User;
     media: Media;
     levels: Level;
@@ -80,6 +81,7 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     posts: PostsSelect<false> | PostsSelect<true>;
+    players: PlayersSelect<false> | PlayersSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     levels: LevelsSelect<false> | LevelsSelect<true>;
@@ -195,11 +197,24 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "levels".
+ * via the `definition` "players".
  */
-export interface Level {
+export interface Player {
   id: number;
-  name: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  /**
+   * Auto-generated from first and last name
+   */
+  fullName?: string | null;
+  /**
+   * Player's jersey number
+   */
+  jerseyNumber: number;
+  /**
+   * Year of graduation
+   */
+  graduationYear: number | Year;
   updatedAt: string;
   createdAt: string;
 }
@@ -210,6 +225,16 @@ export interface Level {
 export interface Year {
   id: number;
   year: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "levels".
+ */
+export interface Level {
+  id: number;
+  name: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -240,6 +265,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: number | Post;
+      } | null)
+    | ({
+        relationTo: 'players';
+        value: number | Player;
       } | null)
     | ({
         relationTo: 'users';
@@ -314,6 +343,19 @@ export interface PostsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "players_select".
+ */
+export interface PlayersSelect<T extends boolean = true> {
+  firstName?: T;
+  lastName?: T;
+  fullName?: T;
+  jerseyNumber?: T;
+  graduationYear?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -12,6 +12,7 @@ import { Media } from './collections/Media'
 import { Level } from './collections/Level'
 import { Years } from './collections/Years'
 import { Posts } from './collections/Posts'
+import { Players } from './collections/Players'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -31,7 +32,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Posts, Users, Media, Level, Years],
+  collections: [Posts, Players, Users, Media, Level, Years],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
