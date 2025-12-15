@@ -69,6 +69,8 @@ export interface Config {
   collections: {
     posts: Post;
     players: Player;
+    roster: Roster;
+    opponents: Opponent;
     users: User;
     media: Media;
     levels: Level;
@@ -82,6 +84,8 @@ export interface Config {
   collectionsSelect: {
     posts: PostsSelect<false> | PostsSelect<true>;
     players: PlayersSelect<false> | PlayersSelect<true>;
+    roster: RosterSelect<false> | RosterSelect<true>;
+    opponents: OpponentsSelect<false> | OpponentsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     levels: LevelsSelect<false> | LevelsSelect<true>;
@@ -201,8 +205,14 @@ export interface User {
  */
 export interface Player {
   id: number;
-  firstName?: string | null;
-  lastName?: string | null;
+  /**
+   * Player's first name
+   */
+  firstName: string;
+  /**
+   * Player's last name
+   */
+  lastName: string;
   /**
    * Auto-generated from first and last name
    */
@@ -225,6 +235,57 @@ export interface Player {
 export interface Year {
   id: number;
   year: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "roster".
+ */
+export interface Roster {
+  id: number;
+  /**
+   * Season year (e.g., "2024-2025")
+   */
+  season: string;
+  players?:
+    | {
+        /**
+         * Select a player
+         */
+        player: number | Player;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "opponents".
+ */
+export interface Opponent {
+  id: number;
+  /**
+   * Full school/team name
+   */
+  name: string;
+  /**
+   * Auto-generated from name
+   */
+  slug: string;
+  /**
+   * Abbreviated name (e.g., "BC" for "Boston College")
+   */
+  shortName: string;
+  /**
+   * School/team logo
+   */
+  logo?: (number | null) | Media;
+  /**
+   * Full school address
+   */
+  schoolAddress?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -269,6 +330,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'players';
         value: number | Player;
+      } | null)
+    | ({
+        relationTo: 'roster';
+        value: number | Roster;
+      } | null)
+    | ({
+        relationTo: 'opponents';
+        value: number | Opponent;
       } | null)
     | ({
         relationTo: 'users';
@@ -354,6 +423,34 @@ export interface PlayersSelect<T extends boolean = true> {
   fullName?: T;
   jerseyNumber?: T;
   graduationYear?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "roster_select".
+ */
+export interface RosterSelect<T extends boolean = true> {
+  season?: T;
+  players?:
+    | T
+    | {
+        player?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "opponents_select".
+ */
+export interface OpponentsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  shortName?: T;
+  logo?: T;
+  schoolAddress?: T;
   updatedAt?: T;
   createdAt?: T;
 }

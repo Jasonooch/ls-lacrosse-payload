@@ -16,8 +16,24 @@ export const Players: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        { name: 'firstName', type: 'text', admin: { width: '50%' } },
-        { name: 'lastName', type: 'text', admin: { width: '50%' } },
+        {
+          name: 'firstName',
+          type: 'text',
+          required: true,
+          admin: {
+            width: '50%',
+            description: "Player's first name",
+          },
+        },
+        {
+          name: 'lastName',
+          type: 'text',
+          required: true,
+          admin: {
+            width: '50%',
+            description: "Player's last name",
+          },
+        },
       ],
     },
     {
@@ -52,7 +68,6 @@ export const Players: CollectionConfig = {
       relationTo: 'years',
       required: true,
       admin: {
-        position: 'sidebar',
         description: 'Year of graduation',
       },
     },
