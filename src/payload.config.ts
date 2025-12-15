@@ -15,6 +15,7 @@ import { Posts } from './collections/Posts'
 import { Players } from './collections/Players'
 import { Opponents } from './collections/Opponents'
 import { Rosters } from './collections/Rosters'
+import { Games } from './collections/Games'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -34,7 +35,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Posts, Players, Rosters, Opponents, Users, Media, Level, Years],
+  collections: [Posts, Games, Players, Rosters, Opponents, Users, Media, Level, Years],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

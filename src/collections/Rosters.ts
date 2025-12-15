@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 export const Rosters: CollectionConfig = {
-  slug: 'roster',
+  slug: 'rosters',
   access: {
     read: () => true,
     create: ({ req: { user } }) => !!user,
@@ -25,6 +25,7 @@ export const Rosters: CollectionConfig = {
       name: 'players',
       type: 'array',
       required: false,
+      label: 'Players',
       admin: {
         description: 'Players on this roster',
       },
@@ -34,24 +35,9 @@ export const Rosters: CollectionConfig = {
           type: 'relationship',
           relationTo: 'players',
           required: true,
-          admin: {
-            description: 'Select a player',
-          },
+          label: 'Player',
         },
       ],
-      admin: {
-        components: {
-          RowLabel: ({ data, index }) => {
-            if (data?.player && typeof data.player === 'object') {
-              const jerseyNumber = data.player.jerseyNumber || '?'
-              const firstName = data.player.firstName || ''
-              const lastName = data.player.lastName || ''
-              return `${jerseyNumber} - ${firstName} ${lastName}`.trim()
-            }
-            return `Player ${index + 1}`
-          },
-        },
-      },
     },
   ],
 }
