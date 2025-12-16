@@ -53,6 +53,33 @@ export const Players: CollectionConfig = {
       },
     },
     {
+      name: 'position',
+      type: 'select',
+      options: [
+        {
+          label: 'Attack',
+          value: 'Attack',
+        },
+        {
+          label: 'Midfield',
+          value: 'Midfield',
+        },
+        {
+          label: 'Defense',
+          value: 'Defense',
+        },
+        {
+          label: 'Goalie',
+          value: 'Goalie',
+        },
+        {
+          label: 'Face Off',
+          value: 'Face Off',
+        },
+      ],
+      required: true,
+    },
+    {
       name: 'jerseyNumber',
       type: 'number',
       required: true,
