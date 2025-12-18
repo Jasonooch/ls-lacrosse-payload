@@ -22,10 +22,6 @@ export const Posts: CollectionConfig = {
     defaultColumns: ['title', 'slug', 'updatedAt'],
     useAsTitle: 'title',
   },
-  versions: {
-    drafts: true, // ← This enables full draft functionality
-    maxPerDoc: 25, // Optional: limits how many draft versions are kept (default is unlimited)
-  },
   fields: [
     {
       name: 'title',

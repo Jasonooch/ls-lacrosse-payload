@@ -29,7 +29,6 @@ export const CoachingStaff: CollectionConfig = {
       type: 'relationship',
       relationTo: 'levels', // Change to your actual Levels/Teams collection slug
       required: true,
-      hasOne: true,
       admin: {
         position: 'sidebar',
       },
