@@ -12,6 +12,10 @@ export const Games: CollectionConfig = {
     defaultColumns: ['name', 'opponent', 'date', 'gameType', 'updatedAt'],
     useAsTitle: 'name',
   },
+  versions: {
+    drafts: true, // ← This enables full draft functionality
+    maxPerDoc: 25, // Optional: limits how many draft versions are kept (default is unlimited)
+  },
   fields: [
     {
       name: 'slug',

@@ -72,6 +72,8 @@ export interface Config {
     players: Player;
     rosters: Roster;
     opponents: Opponent;
+    'coaching-staff': CoachingStaff;
+    coaches: Coach;
     users: User;
     media: Media;
     levels: Level;
@@ -88,6 +90,8 @@ export interface Config {
     players: PlayersSelect<false> | PlayersSelect<true>;
     rosters: RostersSelect<false> | RostersSelect<true>;
     opponents: OpponentsSelect<false> | OpponentsSelect<true>;
+    'coaching-staff': CoachingStaffSelect<false> | CoachingStaffSelect<true>;
+    coaches: CoachesSelect<false> | CoachesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     levels: LevelsSelect<false> | LevelsSelect<true>;
@@ -295,6 +299,7 @@ export interface Player {
    * Auto-generated from first and last name
    */
   fullName?: string | null;
+  position: 'Attack' | 'Midfield' | 'Defense' | 'Goalie' | 'Face Off';
   /**
    * Player's jersey number
    */
@@ -327,6 +332,28 @@ export interface Roster {
     | null;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "coaching-staff".
+ */
+export interface CoachingStaff {
+  id: number;
+  /**
+   * Format: "2025"
+   */
+  year: string;
+  level: number | Level;
+  coaches?:
+    | {
+        coach: number | Coach;
+        role?: ('head' | 'assistant') | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -335,6 +362,27 @@ export interface Roster {
 export interface Level {
   id: number;
   name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "coaches".
+ */
+export interface Coach {
+  id: number;
+  /**
+   * Player's first name
+   */
+  firstName: string;
+  /**
+   * Player's last name
+   */
+  lastName: string;
+  /**
+   * Auto-generated from first and last name
+   */
+  fullName?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -381,6 +429,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'opponents';
         value: number | Opponent;
+      } | null)
+    | ({
+        relationTo: 'coaching-staff';
+        value: number | CoachingStaff;
+      } | null)
+    | ({
+        relationTo: 'coaches';
+        value: number | Coach;
       } | null)
     | ({
         relationTo: 'users';
@@ -482,6 +538,7 @@ export interface PlayersSelect<T extends boolean = true> {
   firstName?: T;
   lastName?: T;
   fullName?: T;
+  position?: T;
   jerseyNumber?: T;
   graduationYear?: T;
   updatedAt?: T;
@@ -501,6 +558,7 @@ export interface RostersSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -512,6 +570,34 @@ export interface OpponentsSelect<T extends boolean = true> {
   shortName?: T;
   logo?: T;
   schoolAddress?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "coaching-staff_select".
+ */
+export interface CoachingStaffSelect<T extends boolean = true> {
+  year?: T;
+  level?: T;
+  coaches?:
+    | T
+    | {
+        coach?: T;
+        role?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "coaches_select".
+ */
+export interface CoachesSelect<T extends boolean = true> {
+  firstName?: T;
+  lastName?: T;
+  fullName?: T;
   updatedAt?: T;
   createdAt?: T;
 }
