@@ -21,7 +21,7 @@ export const Rosters: CollectionConfig = {
       name: 'season',
       type: 'relationship',
       relationTo: 'years',
-      required: true,
+      required: false,
       admin: {
         description: 'Season year (e.g., "2025")',
       },
