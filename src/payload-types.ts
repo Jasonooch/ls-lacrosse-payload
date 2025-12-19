@@ -322,7 +322,7 @@ export interface Roster {
   /**
    * Season year (e.g., "2025")
    */
-  season: number | Year;
+  season?: (number | null) | Year;
   /**
    * Players on this roster
    */
