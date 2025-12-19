@@ -19,10 +19,11 @@ export const Rosters: CollectionConfig = {
   fields: [
     {
       name: 'season',
-      type: 'text',
+      type: 'relationship',
+      relationTo: 'years',
       required: true,
       admin: {
-        description: 'Season year (e.g., "2024-2025")',
+        description: 'Season year (e.g., "2025")',
       },
     },
     {

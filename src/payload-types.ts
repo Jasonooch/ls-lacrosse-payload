@@ -157,8 +157,9 @@ export interface Post {
     };
     [k: string]: unknown;
   };
-  excerpt?: string | null;
   publishedAt?: string | null;
+  photoAttribution?: string | null;
+  season?: (number | null) | Year;
   author?: (number | null) | User;
   updatedAt: string;
   createdAt: string;
@@ -180,6 +181,16 @@ export interface Media {
   filesize?: number | null;
   width?: number | null;
   height?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "years".
+ */
+export interface Year {
+  id: number;
+  year: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -274,16 +285,6 @@ export interface Opponent {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "years".
- */
-export interface Year {
-  id: number;
-  year: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "players".
  */
 export interface Player {
@@ -319,9 +320,9 @@ export interface Player {
 export interface Roster {
   id: number;
   /**
-   * Season year (e.g., "2024-2025")
+   * Season year (e.g., "2025")
    */
-  season: string;
+  season: number | Year;
   /**
    * Players on this roster
    */
@@ -506,8 +507,9 @@ export interface PostsSelect<T extends boolean = true> {
   slug?: T;
   heroImage?: T;
   content?: T;
-  excerpt?: T;
   publishedAt?: T;
+  photoAttribution?: T;
+  season?: T;
   author?: T;
   updatedAt?: T;
   createdAt?: T;

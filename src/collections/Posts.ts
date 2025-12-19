@@ -74,13 +74,6 @@ export const Posts: CollectionConfig = {
       required: true,
     },
     {
-      name: 'excerpt',
-      type: 'textarea',
-      admin: {
-        position: 'sidebar',
-      },
-    },
-    {
       name: 'publishedAt',
       type: 'date',
       admin: {
@@ -98,6 +91,21 @@ export const Posts: CollectionConfig = {
             return value
           },
         ],
+      },
+    },
+    {
+      name: 'photoAttribution',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
+      name: 'season',
+      type: 'relationship',
+      relationTo: 'years',
+      admin: {
+        position: 'sidebar',
       },
     },
     {
