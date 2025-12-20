@@ -226,12 +226,13 @@ export interface Game {
    * Auto-generated from name
    */
   slug: string;
+  season: number | Year;
+  level: number | Level;
   /**
    * Game name (e.g., "vs Boston College")
    */
   name: string;
   opponent: number | Opponent;
-  season: number | Year;
   date: string;
   /**
    * Game location/venue
@@ -253,6 +254,16 @@ export interface Game {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "levels".
+ */
+export interface Level {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -354,16 +365,6 @@ export interface CoachingStaff {
         id?: string | null;
       }[]
     | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "levels".
- */
-export interface Level {
-  id: number;
-  name: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -521,9 +522,10 @@ export interface PostsSelect<T extends boolean = true> {
  */
 export interface GamesSelect<T extends boolean = true> {
   slug?: T;
+  season?: T;
+  level?: T;
   name?: T;
   opponent?: T;
-  season?: T;
   date?: T;
   location?: T;
   livestreamLink?: T;
